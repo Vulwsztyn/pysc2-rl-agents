@@ -48,6 +48,11 @@ class Preprocessor():
   """
 
   def __init__(self, obs_spec):
+    print('Preprocessor init')
+    print(len(features.SCREEN_FEATURES))
+    print(len(features.MINIMAP_FEATURES))
+    print(len(FLAT_FEATURES))
+    print(NUM_FUNCTIONS)
     self.screen_channels = len(features.SCREEN_FEATURES)
     self.minimap_channels = len(features.MINIMAP_FEATURES)
     self.flat_channels = len(FLAT_FEATURES)

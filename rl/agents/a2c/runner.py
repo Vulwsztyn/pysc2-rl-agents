@@ -25,15 +25,21 @@ class A2CRunner():
       n_steps: number of agent steps for collecting rollouts.
       discount: future reward discount.
     """
+    print('A2CRUNNER init')
     self.agent = agent
     self.envs = envs
     self.summary_writer = summary_writer
     self.train = train
     self.n_steps = n_steps
     self.discount = discount
+    print('A2CRUNNER init - before preprocessor')
+    print(self.envs)
+    print(self.envs.observation_spec())
+    print(self.envs.observation_spec()[0])
     self.preproc = Preprocessor(self.envs.observation_spec()[0])
     self.episode_counter = 0
     self.cumulative_score = 0.0
+    print('A2CRUNNER init - done')
 
   def reset(self):
     obs_raw = self.envs.reset()

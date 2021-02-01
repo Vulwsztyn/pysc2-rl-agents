@@ -112,7 +112,7 @@ def main():
     summary_writer = tf.summary.FileWriter(summary_path)
 
     network_data_format = 'NHWC' if args.nhwc else 'NCHW'
-
+    print('--- BEFORE AGENT DEFINITION ---')
     agent = A2CAgent(
         sess=sess,
         network_data_format=network_data_format,
@@ -120,7 +120,7 @@ def main():
         entropy_weight=args.entropy_weight,
         learning_rate=args.lr,
         max_to_keep=args.max_to_keep)
-
+    print('--- BEFORE RUNNER DEFINITION ---')
     runner = A2CRunner(
         envs=envs,
         agent=agent,
@@ -129,14 +129,16 @@ def main():
         discount=args.discount,
         n_steps=args.steps_per_batch)
 
+    print('--- BEFORE RUNNER PREPROC ---')
     static_shape_channels = runner.preproc.get_input_channels()
+    print('--- BEFORE AGENT BUILD ---')
     agent.build(static_shape_channels, resolution=args.res)
 
     if os.path.exists(ckpt_path):
       agent.load(ckpt_path)
     else:
       agent.init()
-
+    print('--- BEFORE RUNNER RESET ---')
     runner.reset()
 
     i = 0
